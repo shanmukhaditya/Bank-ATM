@@ -1,0 +1,21 @@
+﻿@model Bank_ATM.Models.WithdrawalData
+@{
+    ViewData["Title"] = "AfterTransfer";
+}
+
+<div>
+    <h4>Money Transfer Successful!</h4>
+    <p>@Html.Raw(@Model.msg)</p>
+</div>
+
+@{
+    Person person = new Person();
+    person.id = Model.id;
+}
+
+<div> 
+    <a  href= "@Url.Action("ATMView", "Home", person)">
+            Back to Menu
+        </a>
+ 
+</div>

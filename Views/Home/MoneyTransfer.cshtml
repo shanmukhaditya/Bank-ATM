@@ -1,0 +1,39 @@
+﻿@model Bank_ATM.Models.Payee
+@{
+    ViewData["Title"] = "MoneyTransfer";
+}
+
+
+
+<div class='text-center'>
+    <h4>Please enter details for money transfer.</h4>
+    <p>@Html.Raw(Model.msg)</p>
+    <form method = "post" enctype="multipart/form-data" asp-controller="Home" asp-action="MoneyTransferPost" >
+         <table>
+            <tr>
+                <input asp-for="id" hidden />
+                <td>Account Number: </td>
+                <td><input asp-for="accountNumber" readonly/></td>
+            </tr>
+            <tr>
+                <td>Amount: </td>
+                <td><input asp-for="amount" id="intAmount" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit"/></td>
+            </tr>
+         </table>
+    </form>
+</div>
+
+@{
+    Person person = new Person();
+    person.id = Model.id;
+}
+<div>
+    <a  href= '@Url.Action("ATMView", "Home", person)'>
+            Back to Menu
+    </a>
+ 
+</div>

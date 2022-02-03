@@ -1,0 +1,17 @@
+﻿@model Bank_ATM.Models.Person
+@{
+    ViewData["Title"] = "BalanceEnquiry";
+}
+
+<div>
+    <h3>Balance Enquiry</h3>
+    <p>your current balance is @Model.balance</p>
+</div>
+
+
+<div>
+    <a  href= "@Url.Action("ATMView", "Home", @Model)">
+            Back to Menu
+        </a>
+ 
+</div>

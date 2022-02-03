@@ -1,0 +1,64 @@
+﻿@model Bank_ATM.Models.Payee
+@{
+    ViewData["Title"] = "AddPayee";
+}
+
+<h6>Please Add payee if you want to transfer money to new account that you do not see in the below table</h6>
+
+<p>@Html.Raw(ViewBag.msg)</p>
+<form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="AddPayee">
+        <table>
+            <tr>
+                <td>Account No: </td>
+                <td><input type="number" id="intAccountNumber" name="accountNumber"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Add Payee"/></td>
+            </tr>
+        </table>
+        <hr/>
+       
+    </form>
+<hr/>
+
+<table class="table table-bordered">
+<thead>
+	  <tr>
+	      <th>ID</th>
+	      <th>Name</th>
+          <th>Account Number</th>
+          <th>Action</th>
+	  </tr>
+</thead>
+<tbody>
+      @{int i =1;}
+	  @foreach (var item in @Model.dataset)
+	  {
+	      <tr>
+	          <th scope="row">@i </th>
+              @{i++;}
+	          <td>@string.Join(' ' , item.ItemArray[2], item.ItemArray[3])</td>
+              <td>@item.ItemArray[1]</td>
+              <td>
+                  <a href = "@Url.Action("MoneyTransfer","Home", new { id = item.ItemArray[0], accountNumber = item.ItemArray[1] })">
+                      Transfer
+                  </a>
+                  
+              </td>
+	      </tr> 
+	  }
+</tbody>
+</table>
+
+
+@{
+    Person person = new Person();
+    person.id = Model.id;
+}
+<div>
+    <a  href= '@Url.Action("ATMView", "Home", person)'>
+            Back to Menu
+    </a>
+ 
+</div>

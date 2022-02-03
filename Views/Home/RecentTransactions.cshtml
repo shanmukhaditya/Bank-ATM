@@ -1,0 +1,44 @@
+﻿@model Bank_ATM.Models.Payee
+@{
+    ViewData["Title"] = "RecentTransactions";
+}
+
+<h6>Here are the recent transactions for your account</h6>
+
+<table class="table table-bordered">
+<thead>
+	  <tr>
+	      <th>ID</th>
+          <th>Transaction Date</th>
+	      <th>Transaction Type</th>
+          <th>Description</th>
+          <th>Amount</th>
+	  </tr>
+</thead>
+<tbody>
+      @{int i =1;}
+	  @foreach (var item in @Model.dataset)
+	  {
+	      <tr>
+	          <th scope="row">@i </th>
+              @{i++;}
+	          <td>@item.ItemArray[1]</td>
+              <td>@item.ItemArray[2]</td>
+              <td>@item.ItemArray[3]</td>
+              <td>@item.ItemArray[4]</td>
+	      </tr> 
+	  }
+</tbody>
+</table>
+
+
+@{
+    Person person = new Person();
+    person.id = Model.id;
+}
+<div>
+    <a  href= '@Url.Action("ATMView", "Home", person)'>
+            Back to Menu
+    </a>
+ 
+</div>

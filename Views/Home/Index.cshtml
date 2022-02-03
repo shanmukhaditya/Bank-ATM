@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h3>Welcome to MockBank ATM</h3>
+    <p>Please enter your card for authentication
+
+    <form method = "post" enctype="multipart/form-data" asp-controller="Home" asp-action="Index" >
+        <p style='color:red;'>@Html.Raw(ViewBag.msg)</p>
+         <table>
+            <tr>
+                <td>Card Number: </td>
+                <td><input type="number" id="intCardNumber" name="person.cardNumber"/></td>
+            </tr>
+            <tr>
+                <td>Pin Number: </td>
+                <td><input type="number" id="pinNumber" name="person.pinNumber"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit"/></td>
+            </tr>
+         </table>
+    </form>
+    </p>
+
+</div>

@@ -1,0 +1,34 @@
+﻿@model Bank_ATM.Models.WithdrawalData
+
+@{
+    ViewData["Title"] = "Withdrawal";
+}
+
+
+<div class='text-center'>
+    <h4>Please enter the amount you want to withdraw.</h4>
+    <p>@Html.Raw(Model.msg)</p>
+    <form method = "post" enctype="multipart/form-data" asp-controller="Home" asp-action="Withdrawal" >
+         <table>
+            <tr>
+                <td>Amount: </td>
+                <td><input type="number" id="intCardNumber" name="amount"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit"/></td>
+            </tr>
+         </table>
+    </form>
+</div>
+
+@{
+    Person person = new Person();
+    person.id = Model.id;
+}
+<div>
+    <a  href= '@Url.Action("ATMView", "Home", person)'>
+            Back to Menu
+    </a>
+ 
+</div>
