@@ -20,6 +20,14 @@ namespace Bank_ATM.Controllers
 
         public IActionResult Index(Person person)
         {
+            if (HttpContext.Request.Cookies.ContainsKey("auth"))
+            {
+                string auth = HttpContext.Request.Cookies["auth"];
+                person.cardNumber = auth.Split("%&")[1];
+                person.pinNumber = auth.Split("%&")[0];
+                person.balance = "0";
+            }
+
             if (person.cardNumber == null)
             {
                 return View();
@@ -63,6 +71,12 @@ namespace Bank_ATM.Controllers
                     conn.Close();
 
                 }
+                if(person.stayLogged && !HttpContext.Request.Cookies.ContainsKey("auth"))
+                {
+                    string auth = string.Format("{1}%&{0}", person.cardNumber, person.pinNumber);
+                    setCookie(auth, 120);
+                }
+                
 
                 return RedirectToAction("ATMView", "Home", person);
                 
@@ -86,10 +100,32 @@ namespace Bank_ATM.Controllers
             
         }
 
+        public int setCookie(String auth, int expirySeconds)
+        {
+            string sessionId = "123";
+            CookieOptions cookieOptions = new CookieOptions();
+            cookieOptions.Expires = new DateTimeOffset(DateTime.Now.AddSeconds(expirySeconds));
+            HttpContext.Response.Cookies.Append("auth", auth, cookieOptions);
+            HttpContext.Response.Cookies.Append("sessionId", sessionId);
+            return 0;
+        }
+
         [HttpGet]
         public IActionResult UnlockAccount()
         {
             return View();
+        }
+        
+        public IActionResult Logout()
+        {
+         
+            if (HttpContext.Request.Cookies.ContainsKey("auth"))
+            {
+                CookieOptions cookieOptions = new CookieOptions();
+                cookieOptions.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Response.Cookies.Append("auth", "", cookieOptions);
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

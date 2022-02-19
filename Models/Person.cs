@@ -12,6 +12,7 @@ namespace Bank_ATM.Models
         public string pinNumber { get; set; }
         public string balance { get; set; }
         public bool isLocked { get; set; }
+        public bool stayLogged { get; set; }
     }
     public class WithdrawalData
     {
